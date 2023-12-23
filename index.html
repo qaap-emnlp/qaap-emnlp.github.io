@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Apply LLMs to represent both the question and context as codes and obtain answer through programming.">
+  <meta name="keywords" content="Large Language Models, Reasoning, Question Answering">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Question Answering as Programming for Solving Time-Sensitive Questions</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://zhuxinyu.top">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/TianHongZXY/CoRe">
+            CoRe
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Question Answering as Programming for Solving Time-Sensitive Questions</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zhuxinyu.top">Xinyu Zhu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a>Cheng Yang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://ml.cs.tsinghua.edu.cn/~beichen/">Bei Chen</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=thceJNUAAAAJ">Siheng Li</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.microsoft.com/en-us/research/people/jlou/">Jian-Guang Lou</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/iigroup-thu/about">Yujiu Yang</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1 </sup>Tsinghua University,</span>
+            <span class="author-block"><sup>2 </sup>Microsoft</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2305.14221.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2305.14221"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/TianHongZXY/qaap"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-centered">
+          <img id="method" width="60%" src="images/intro_fig.png">
+        </div>
+      </div>
+    </div>
+</div>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Question answering plays a pivotal role in human daily life because it involves our 
+            acquisition of knowledge about the world. However, due to the dynamic and ever-changing 
+            nature of real-world facts, the answer can be completely different when the time constraint 
+            in the question changes. 
+            Recently, Large Language Models (LLMs) have shown remarkable intelligence 
+            in question answering, while our experiments reveal that the aforementioned problems still pose 
+            a significant challenge to existing LLMs. This can be attributed to the LLMs' inability to perform
+            rigorous reasoning based on surface-level text semantics. 
+          </p>
+          <p>To overcome this limitation, rather than requiring LLMs to directly answer the question, we propose a novel approach where we reframe the 
+            Question Answering task as Programming (QAaP). Concretely, by leveraging modern LLMs' superior 
+            capability in understanding both natural language and programming language, we endeavor to 
+            harness LLMs to represent diversely expressed text as well-structured code and select the best
+            matching answer from multiple candidates through programming. 
+            We evaluate our QAaP framework on several time-sensitive question answering datasets 
+            and achieve decent improvement, up to 14.5% over strong baselines.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-centered">
+          <img id="method" src="images/main_figure.png">
+          <h3 class="subtitle has-text-centered">
+            <p style="font-family:Times New Roman"><b>The whole framework of QAaP</b></p>
+          </h3>
+        </div>
+      </div>
+    </div>
+</div>
+
+<section class="section">
+<div class="columns is-centered">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Our method consists of two phases: 1. Represent all as codes, 
+        we endeavor to harness their strong coding ability to transform the question and context into well-structured codes.
+         We first Parse the given question into a python dict, then Extract relevant 
+         information from the provided context and store these items in a python list. 
+          2. Choose answer through programming, it is necessary to check if the extracted contents 
+          are faithful to the corresponding context. Furthermore, as there may be multiple potential answers,
+           we need to reason out the best-matching answer to the question. Since all the obtained information 
+          is represented as codes, we can easily construct two functions Check and Match to
+          reduce hallucination and ensure accuracy.
+      </p>
+    </div>  
+  </div>
+</div>
+</section>
+
+
+<section class="section">
+<div class="columns is-centered">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">Results</h2>
+  </div>
+</div>
+
+<div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-centered">
+          <img id="method" src="images/main_results.jpg">
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+
+<section class="section">
+<div class="columns is-centered">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">Example</h2>
+  </div>
+</div>
+
+<!-- <embed src="images/case_study.pdf" width="500" height="375" type="application/pdf"> -->
+<div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-centered">
+          <img id="case study" width="80%" src="images/case_study.jpg">
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{zhu2023qaap,
+  author       = {Zhu, Xinyu and Yang, Cheng and Chen, Bei  and Li, Siheng and Lou, Jian-Guang and Yang, Yujiu},
+  title        = {Question Answering as Programming for Solving Time-Sensitive Questions},
+  booktitle    = {{EMNLP}},
+  pages        = {12775--12790},
+  publisher    = {Association for Computational Linguistics},
+  year         = {2023}
+}
+</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="container is-max-desktop content">
+        <div class="content">
+            This website is adapted from <a
+              href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
